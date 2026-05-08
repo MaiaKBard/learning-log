@@ -9,16 +9,20 @@ const Home = () => {
     setText(e.target.value)
   }
 
-  const resetResponse = async () => {
+  const resetResponse = async (type:string) => {
     const response = await fetch('http://localhost:3000/test', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({URL:text})
+      body: JSON.stringify({
+        URL:text,
+        type
+      })
     })
     const data = await response.text()
 
     setResponse(data)
   }
+  
   return (
     <>
       <h1>Learning Log</h1>
@@ -32,13 +36,13 @@ const Home = () => {
           placeholder='Type Here...'
         />
       </label>
-      <button onClick={resetResponse}>
+      <button onClick={() => {resetResponse('Both')}}>
         Both
       </button>
-      <button>
+      <button onClick={() => {resetResponse('Breakdown/Summary')}}>
         Breakdown/Summary
       </button>
-      <button>
+      <button onClick={() => {resetResponse('Deeper Dive')}}>
         Deeper Dive
       </button>
       <p>

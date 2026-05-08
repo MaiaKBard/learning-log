@@ -28,10 +28,10 @@ try {
 }
 // routes
 app.post('/test', async (req, res) => {
-  const { URL } = req.body
+  const { URL, type } = req.body
   const text = await scraperURL(URL)
   
-  const content =  await AIResponse(text)
+  const content =  await AIResponse(text, type)
   res.send(content)
 })
 
