@@ -31,7 +31,7 @@ app.post('/test', async (req, res) => {
   const { URL, type } = req.body
   const text = await scraperURL(URL)
   
-  const content =  await AIResponse(text, type)
+  const {content, title} =  await AIResponse(text, type)
   res.send(content)
 })
 
