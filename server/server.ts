@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import scraperURL from './utils/scraper.ts'
+import AIResponse from './utils/ai.ts'
 
 dotenv.config()
 
@@ -20,8 +21,9 @@ try {
 // routes
 app.post('/test', async (req, res) => {
   const { URL } = req.body
-  const content = await scraperURL(URL)
- 
+  const text = await scraperURL(URL)
+  
+  const content =  await AIResponse(text)
   res.send(content)
 })
 
