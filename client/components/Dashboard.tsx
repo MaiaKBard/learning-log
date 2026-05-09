@@ -2,7 +2,14 @@ import React from 'react'
 import { useState, useEffect} from 'react'
 
 const Dashboard = () => {
-  const [data, setData ] = useState([])
+  const [data, setData] = useState<{
+    _id: string,
+    url: string,
+    title: string,
+    summary: string,
+    breakdown: string,
+    deeperDive: string
+  }[]>([])
   const [loading, setLoading ] = useState(true)
   const [selectedEntry, setSelectedEntry] = useState<{
     _id: string,
@@ -30,6 +37,25 @@ const Dashboard = () => {
     fetchData()
   }, [])
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/dashboard/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        setData(data.filter(item => item._id !== id))
+        console.log('Successful Delete')
+      }
+
+    } catch(err) {
+      console.log("Error deleting item:", err)
+    }
+  }
+
   return (
     <>
      {selectedEntry === null ? (
@@ -44,6 +70,7 @@ const Dashboard = () => {
                   <div className="card-tag"> {new URL(url).hostname} </div>
                   <div className="card-title">{title}</div>
                   <div className="card-summary">{summary}</div>
+                  <button className="delete-button" onClick={(e) => { e.stopPropagation(); handleDelete(_id)}}>Delete</button>
                 </div>
               ))}
             </div>
