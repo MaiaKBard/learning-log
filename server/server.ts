@@ -83,6 +83,18 @@ app.delete('/dashboard/:id', async (req, res) => {
   }
 })
 
+app.post('/chat', async (req, res) => {
+  try {
+    const { message } = req.body
+    const content = await AIResponse(message, true)
+    
+    res.send(content)
+  } catch(err) {
+    console.log(err)
+    res.status(500).send('Chat failed')
+  }
+})
+
 app.use((err, req, res, next) => {
   console.log(err)
   res.status(500).send({ error : err })
