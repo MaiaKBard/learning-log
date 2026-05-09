@@ -5,12 +5,13 @@ const scraperURL = async (URL: string) => {
     const response = await fetch(URL)
     const html = await response.text()
     const $ = cheerio.load(html)
-    const content = $('main').text()
+    const text = $('main').text()
     const title = $('title').text()
 
-    return {content, title}
+    return {text, title}
   } catch (err) {
     console.log(err)
+    return { content: '', title: '' }
   }
 }
 
