@@ -6,7 +6,8 @@ const scraperURL = async (URL: string) => {
     const html = await response.text()
     const $ = cheerio.load(html)
     const text = $('main').text() || $('body').text()
-    const title = $('title').text()
+    const rawTitle = $('title').text()
+    const title = rawTitle.split('|')[0].trim()
 
     return {text, title}
   } catch (err) {
