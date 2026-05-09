@@ -44,8 +44,9 @@ app.post('/home', async (req, res) => {
 
     const cleaned = content.replace(/```json\n?|\n?```/g, '').trim()
     const { summary, breakdown, deeperDive } = JSON.parse(cleaned)
+    const deeperDiveString = Array.isArray(deeperDive) ? JSON.stringify(deeperDive) : deeperDive
 
-    await Resource.create({url:URL, title, summary, breakdown, deeperDive})
+    await Resource.create({url:URL, title, summary, breakdown, deeperDive: deeperDiveString})
   
     if (type === 'Breakdown/Summary') {
       res.send({breakdown, summary})
