@@ -41,6 +41,7 @@ const Dashboard = () => {
             <div className="card-grid"> {
               data.map(({ _id, url, title, summary, breakdown, deeperDive }) => (
                 <div key={_id} className="card" onClick={() => setSelectedEntry({_id, url, title, summary, breakdown, deeperDive})}> 
+                  <div className="card-tag"> {new URL(url).hostname} </div>
                   <div className="card-title">{title}</div>
                   <div className="card-summary">{summary}</div>
                 </div>

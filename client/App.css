@@ -185,3 +185,17 @@ button {
   font-size: 14px;
   line-height: 1.7;
 }
+
+.card-tag {
+  color: #4ade80;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  background-color: #003513;
+  padding: 4px 10px;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 14px 0;
+  border-color: #4ade80;
+  border: 0.5px solid rgb(96, 96, 96);
+}
