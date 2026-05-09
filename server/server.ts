@@ -70,6 +70,19 @@ app.get('/dashboard', async (req, res) => {
   }
 })
 
+app.delete('/dashboard/:id', async (req, res) => {
+  console.log('delete route hit, id:', req.params.id)
+  try {
+    const { id } = req.params
+
+    await Resource.deleteOne({ _id:id})
+    res.status(200).send('Deleted')
+  } catch (err) {
+    console.log('Route error:', err)
+    res.status(500).send('Server error')
+  }
+})
+
 app.use((err, req, res, next) => {
   console.log(err)
   res.status(500).send({ error : err })
