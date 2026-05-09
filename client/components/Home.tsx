@@ -15,6 +15,7 @@ const Home = () => {
     if (!text) {
       return setResponse('Please enter a URL')
     }
+  
     setLoading(true)
     setResponse('')
     try {
@@ -33,6 +34,7 @@ const Home = () => {
       setResponse('Something went wrong, please try again')
     } finally {
       setLoading(false)
+      setText('')
     }
   }
 
