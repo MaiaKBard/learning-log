@@ -34,10 +34,17 @@ app.post('/home', async (req, res) => {
     const { URL, type } = req.body
     const { text, title } = await scraperURL(URL)
 
+    if (!text || text.trim() === '') {
+      return res.status(400).send('Could not read/scrape content from URL')
+    }
+
     const content =  await AIResponse(text)
-    if (!content) return res.status(500).send('AI failed')
+
+    if (!content) return res.status(500).send('Could not generate a response, please try again')
+
     const cleaned = content.replace(/```json\n?|\n?```/g, '').trim()
-    const { summary, breakdown, deeperDive } = JSON.parse(content)
+    const { summary, breakdown, deeperDive } = JSON.parse(cleaned)
+
     await Resource.create({url:URL, title, summary, breakdown, deeperDive})
   
     if (type === 'Breakdown/Summary') {
@@ -54,8 +61,18 @@ app.post('/home', async (req, res) => {
 })
 
 app.get('/dashboard', async (req, res) => {
-  const resources = await Resource.find()
-  res.send(resources)
+  try {
+    const resources = await Resource.find()
+    res.send(resources)
+  } catch(err) {
+    console.log('Route error:', err)
+    res.status(500).send('Server error')
+  }
+})
+
+app.use((err, req, res, next) => {
+  console.log(err)
+  res.status(500).send({ error : err })
 })
 
 app.listen(PORT, () => {

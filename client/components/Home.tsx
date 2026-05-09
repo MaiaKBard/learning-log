@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 const Home = () => {
   const [ text, setText ] = useState('')
-  const [ response, setResponse ] = useState('')
+  const [ response, setResponse ] = useState<{summary?: string, breakdown?: string, deeperDive?: string} | string>('')
   const [loading, setLoading ] = useState(false)
 
   const handleChange = (e) => {
@@ -12,7 +12,11 @@ const Home = () => {
 
   
   const resetResponse = async (type:string) => {
+    if (!text) {
+      return setResponse('Please enter a URL')
+    }
     setLoading(true)
+    setResponse('')
     try {
       const response = await fetch('http://localhost:3000/home', {
         method: 'POST',
@@ -22,11 +26,11 @@ const Home = () => {
           type
         })
       })
-      const data = await response.text()
+      const data = await response.json()
 
       setResponse(data)
     } catch (err) {
-      console.log(err)
+      setResponse('Something went wrong, please try again')
     } finally {
       setLoading(false)
     }
@@ -56,9 +60,15 @@ const Home = () => {
         Deeper Dive
       </button>
       {loading && <p>Loading...</p>}
-      <p>
-        {response}
-      </p>
+      {typeof response === 'string' ? (
+        <p>{response}</p>
+      ) : (
+        <div>
+          {response.summary && <p>{response.summary}</p>}
+          {response.breakdown && <p>{response.breakdown}</p>}
+          {response.deeperDive && <p>{response.deeperDive}</p>}
+        </div>
+      )}
     </>
   )
 }

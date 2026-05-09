@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai"
 
-  const AIResponse = async(text) => {
+const AIResponse = async(text) => {
   try {
     if (!text) return
     const limitedText = text.slice(0, 500)
@@ -16,6 +16,7 @@ import { GoogleGenAI } from "@google/genai"
     return response.text
  } catch(err) {
   console.log('AIResponse error:', err)
+  throw err
  }
 }
 
