@@ -24,10 +24,21 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1>Learning Dashboard</h1>
-      {loading ? <p>Loading...</p> : <div>{data.map(({ _id, title, summary }) => {
-        return <div key={_id}> {title} {summary} </div>
-      })}</div>}
+      <div className="dashboard-container">
+        <p className="page-label">DASHBOARD PAGE</p>
+        <h1>Learning Dashboard</h1>
+        <p>Your saved resources</p>
+        {loading ? <p>Loading...</p> :
+          <div className="card-grid"> {
+            data.map(({ _id, title, summary }) => (
+              <div key={_id} className="card"> 
+                <div className="card-title">{title}</div>
+                <div className="card-summary">{summary}</div>
+              </div>
+            ))
+          }</div>
+        }
+      </div>
     </>
   )
 }

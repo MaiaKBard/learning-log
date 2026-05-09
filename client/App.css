@@ -1,0 +1,146 @@
+/* Nav Bar component*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1a1d27;
+  border-bottom: 0.5px solid rgb(96, 96, 96);
+}
+
+.nav-logo {
+  color: #4ade80;
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links button {
+  background-color: #1a1d27;
+}
+
+/* Home component*/
+.home-container {
+  padding: 40px 32px;
+  max-width: 800px;
+}
+
+p {
+  padding: 7px 0;
+  color: grey;
+}
+
+.page-label {
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  background-color: #1a1d27;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin: 14px 0;
+}
+
+h2 {
+  color: #4ade80;
+  font-size: 15px;
+  padding: 7px 0;
+  font-weight: normal;
+}
+
+h1 {
+  font-weight: normal;
+  padding: 7px 0;
+}
+
+.input-row {
+  padding: 7px 0;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 0.5px solid rgb(96, 96, 96);
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  background-color: rgb(40, 40, 40);
+  color:white;
+}
+
+input::placeholder {
+  font-style: italic;
+  font-size: medium;
+  opacity: 0.7;
+}
+
+.btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  background-color: #0f1117;
+  color: white;
+  border: 0.5px solid rgb(96, 96, 96);
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: 15px;
+}
+
+.btn-primary {
+  background-color: #4ade80;
+  color: #0f1117;
+  border-color: #4ade80;
+}
+
+.output-box {
+  margin-top: 24px;
+  background: #1a1d27;
+  border: 0.5px solid rgb(96, 96, 96);
+  border-radius: 10px;
+  padding: 20px;
+  line-height: 1.7;
+}
+
+.output-box p {
+  color:#d1d5db;
+  margin-bottom: 16px;
+}
+
+/* Dashboard component*/
+.dashboard-container {
+  padding: 40px 32px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:16px;
+  margin-top: 24px;
+}
+
+.card {
+  background: #1a1d27;
+  border: 0.5px solid rgb(96, 96, 96);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.card-title {
+  color:white;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.card-summary {
+  color: #6b7280;
+  font-size: 12px;
+  line-height: 1.6;
+}
