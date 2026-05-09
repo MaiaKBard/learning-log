@@ -4,6 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import scraperURL from './utils/scraper.ts'
 import AIResponse from './utils/ai.ts'
+import Resource from './models/ResourceModel.ts'
 
 dotenv.config()
 
@@ -29,15 +30,13 @@ try {
 // routes
 app.post('/test', async (req, res) => {
   const { URL, type } = req.body
-  console.log('URL:', URL, 'type:', type)
   const { text, title } = await scraperURL(URL)
-  // console.log('scraped text:', text?.slice(0, 100))
 
   const content =  await AIResponse(text)
   if (!content) return res.status(500).send('AI failed')
-    console.log(content)
   const cleaned = content.replace(/```json\n?|\n?```/g, '').trim()
   const { summary, breakdown, deeperDive } = JSON.parse(content)
+  await Resource.create({url:URL, title, summary, breakdown, deeperDive})
  
   if (type === 'Breakdown/Summary') {
     res.send({breakdown, summary})
