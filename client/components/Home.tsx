@@ -39,36 +39,61 @@ const Home = () => {
 
   return (
     <>
-      <h1>Learning Log</h1>
-      <p>Input URL & get a breakdown with a summary OR deeper learning suggestions OR both!</p>
-      <label>
-        Enter URL:
-        <input
-          type="text"
-          value={text}
-          onChange={handleChange}
-          placeholder='Type Here...'
-        />
-      </label>
-      <button onClick={() => {resetResponse('Both')}}>
-        Both
-      </button>
-      <button onClick={() => {resetResponse('Breakdown/Summary')}}>
-        Breakdown/Summary
-      </button>
-      <button onClick={() => {resetResponse('Deeper Dive')}}>
-        Deeper Dive
-      </button>
-      {loading && <p>Loading...</p>}
-      {typeof response === 'string' ? (
-        <p>{response}</p>
-      ) : (
-        <div>
-          {response.summary && <p>{response.summary}</p>}
-          {response.breakdown && <p>{response.breakdown}</p>}
-          {response.deeperDive && <p>{response.deeperDive}</p>}
+      <div className="home-container">
+        <p className="page-label">HOME PAGE</p>
+        <h2>YOUR LEARNING COMPANION</h2>
+        <h1>Input a URL, get instant insights</h1>
+        <p>Paste any delveloper resource and get a breakdown, summary, or deeper dive suggestions - all saved to your dashboard.</p>
+        <div className="input-row">
+          <label>
+            <div className="url-input">
+              <input
+                type="text"
+                value={text}
+                onChange={handleChange}
+                placeholder='https://developer.mozilla.org/...'
+              />
+            </div>
+          </label>
         </div>
-      )}
+        <div className='btn-group'>
+          <button className="btn-primary" onClick={() => {resetResponse('Both')}}>
+            Both
+          </button>
+          <button onClick={() => {resetResponse('Breakdown/Summary')}}>
+            Breakdown/Summary
+          </button>
+          <button onClick={() => {resetResponse('Deeper Dive')}}>
+            Deeper Dive
+          </button>
+        </div>
+        {loading && <p>Loading...</p>}
+       
+        {typeof response === 'string' ? (
+          <p>{response}</p>
+        ) : (
+          <div className="output-box">
+            {response.summary && (
+              <>
+              <h2>Summary</h2>
+              <p>{response.summary}</p>
+              </>
+            )}
+            {response.breakdown && (
+              <>
+              <h2>Breakdown</h2>
+              <p>{response.breakdown}</p>
+              </>
+            )}
+            {response.deeperDive && (
+              <>
+              <h2>Deeper Dive</h2>
+              <p>{response.deeperDive}</p>
+              </>
+              )}
+          </div>
+        )}
+      </div>
     </>
   )
 }

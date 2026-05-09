@@ -3,8 +3,13 @@ import React from 'react'
 const NavBar = ({ setPage }) => {
   return (
     <>
-      <button onClick={() => {setPage('home')}}>Home</button>
-      <button onClick={() => {setPage('dashboard')}}>Dashboard</button>
+      <nav className="navbar">
+        <div className="nav-logo">Learning Log</div>
+        <div className="nav-links">
+          <button onClick={() => {setPage('home')}}>Home</button>
+          <button onClick={() => {setPage('dashboard')}}>Dashboard</button>
+        </div>
+      </nav>
     </>
   )
 }
