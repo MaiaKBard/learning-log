@@ -131,6 +131,10 @@ button {
   border-radius: 10px;
   padding: 16px;
 }
+.card:hover {
+  border-color: #4ade80;
+  cursor: pointer;
+}
 
 .card-title {
   color:white;
