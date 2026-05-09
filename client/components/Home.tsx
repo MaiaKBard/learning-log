@@ -4,24 +4,34 @@ import { useState } from 'react'
 const Home = () => {
   const [ text, setText ] = useState('')
   const [ response, setResponse ] = useState('')
+  const [loading, setLoading ] = useState(false)
 
   const handleChange = (e) => {
     setText(e.target.value)
   }
 
+  
   const resetResponse = async (type:string) => {
-    const response = await fetch('http://localhost:3000/home', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        URL:text,
-        type
+    setLoading(true)
+    try {
+      const response = await fetch('http://localhost:3000/home', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          URL:text,
+          type
+        })
       })
-    })
-    const data = await response.text()
+      const data = await response.text()
 
-    setResponse(data)
+      setResponse(data)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false)
+    }
   }
+
 
   return (
     <>
@@ -45,6 +55,7 @@ const Home = () => {
       <button onClick={() => {resetResponse('Deeper Dive')}}>
         Deeper Dive
       </button>
+      {loading && <p>Loading...</p>}
       <p>
         {response}
       </p>

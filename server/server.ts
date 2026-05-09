@@ -29,21 +29,27 @@ try {
 }
 // routes
 app.post('/home', async (req, res) => {
-  const { URL, type } = req.body
-  const { text, title } = await scraperURL(URL)
+  console.log('route hit!')
+  try {
+    const { URL, type } = req.body
+    const { text, title } = await scraperURL(URL)
 
-  const content =  await AIResponse(text)
-  if (!content) return res.status(500).send('AI failed')
-  const cleaned = content.replace(/```json\n?|\n?```/g, '').trim()
-  const { summary, breakdown, deeperDive } = JSON.parse(content)
-  await Resource.create({url:URL, title, summary, breakdown, deeperDive})
- 
-  if (type === 'Breakdown/Summary') {
-    res.send({breakdown, summary})
-  } else if (type === 'Deeper Dive') {
-    res.send(deeperDive)
-  } else {
-    res.send({breakdown, summary, deeperDive})
+    const content =  await AIResponse(text)
+    if (!content) return res.status(500).send('AI failed')
+    const cleaned = content.replace(/```json\n?|\n?```/g, '').trim()
+    const { summary, breakdown, deeperDive } = JSON.parse(content)
+    await Resource.create({url:URL, title, summary, breakdown, deeperDive})
+  
+    if (type === 'Breakdown/Summary') {
+      res.send({breakdown, summary})
+    } else if (type === 'Deeper Dive') {
+      res.send(deeperDive)
+    } else {
+      res.send({breakdown, summary, deeperDive})
+    }
+  } catch (err) {
+    console.log('Route error:', err)
+    res.status(500).send('Server error')
   }
 })
 

@@ -15,7 +15,7 @@ import { GoogleGenAI } from "@google/genai"
 
     return response.text
  } catch(err) {
-  console.log(err)
+  console.log('AIResponse error:', err)
  }
 }
 
