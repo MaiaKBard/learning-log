@@ -32,11 +32,11 @@ const Dashboard = () => {
 
   return (
     <>
+     {selectedEntry === null ? (
       <div className="dashboard-container">
         <p className="page-label">DASHBOARD PAGE</p>
         <h1>Learning Dashboard</h1>
         <p>Your saved resources</p>
-        {selectedEntry === null ? (
           loading ? <p>Loading...</p> :
             <div className="card-grid"> {
               data.map(({ _id, url, title, summary, breakdown, deeperDive }) => (
@@ -46,30 +46,17 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
-        ) : (
-            <div className="entry-view">
-              <button onClick={() => setSelectedEntry(null)}> ← </button>
-              <h3>{selectedEntry.title}</h3>
-              <div>
-                <h2>URL</h2>
-                <p>{selectedEntry.url}</p>
-              </div>
-              <div>
-                <h2>Deeper Dive</h2>
-                <p>{selectedEntry.deeperDive}</p>
-              </div>
-              <div>
-                <h2>Summary</h2>
-                <p>{selectedEntry.summary}</p>
-              </div>
-              <div>
-                <h2>Breakdown</h2>
-                <p>{selectedEntry.breakdown}</p>
-              </div>
-            </div>
-          )
-        }
       </div>
+    ) : (
+      <div className="entry-view">
+        <button onClick={() => setSelectedEntry(null)}>← Back to dashboard</button>
+        <h1 className="entry-title">{selectedEntry.title}</h1>
+        <p className="resource-url">{selectedEntry.url}</p>
+        <div className="section"><h2>Summary</h2><p>{selectedEntry.summary}</p></div>
+        <div className="section"><h2>Breakdown</h2><p>{selectedEntry.breakdown}</p></div>
+        <div className="section"><h2>Deeper Dive</h2><p>{selectedEntry.deeperDive}</p></div>
+    </div>
+  )}
     </>
   )
 }
