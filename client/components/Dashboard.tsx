@@ -37,7 +37,7 @@ const Dashboard = () => {
         <p className="page-label">DASHBOARD PAGE</p>
         <h1>Learning Dashboard</h1>
         <p>Your saved resources</p>
-          loading ? <p>Loading...</p> :
+          {loading ? <p>Loading...</p> :
             <div className="card-grid"> {
               data.map(({ _id, url, title, summary, breakdown, deeperDive }) => (
                 <div key={_id} className="card" onClick={() => setSelectedEntry({_id, url, title, summary, breakdown, deeperDive})}> 
@@ -46,6 +46,7 @@ const Dashboard = () => {
                 </div>
               ))}
             </div>
+          }
       </div>
     ) : (
       <div className="entry-view">
