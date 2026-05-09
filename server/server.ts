@@ -28,7 +28,7 @@ try {
   console.log(err)
 }
 // routes
-app.post('/test', async (req, res) => {
+app.post('/home', async (req, res) => {
   const { URL, type } = req.body
   const { text, title } = await scraperURL(URL)
 
@@ -45,6 +45,11 @@ app.post('/test', async (req, res) => {
   } else {
     res.send({breakdown, summary, deeperDive})
   }
+})
+
+app.get('/dashboard', async (req, res) => {
+  const resources = await Resource.find()
+  res.send(resources)
 })
 
 app.listen(PORT, () => {

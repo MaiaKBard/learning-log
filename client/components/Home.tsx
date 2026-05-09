@@ -10,7 +10,7 @@ const Home = () => {
   }
 
   const resetResponse = async (type:string) => {
-    const response = await fetch('http://localhost:3000/test', {
+    const response = await fetch('http://localhost:3000/home', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -22,7 +22,7 @@ const Home = () => {
 
     setResponse(data)
   }
-  
+
   return (
     <>
       <h1>Learning Log</h1>
